@@ -8,6 +8,7 @@ export default function Page() {
       <div className="mt-8 flex items-center justify-center gap-4">
         <Link href="/chat" className="rounded bg-black px-5 py-3 text-white">AI Chatbot</Link>
       </div>
+        <a href="/calendar" className="rounded border px-5 py-3">Calendar</a>
     </main>
   );
 }
