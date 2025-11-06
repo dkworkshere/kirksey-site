@@ -7,7 +7,6 @@ export default function Page() {
       <p className="mt-4 text-zinc-600">Next.js + Tailwind + AI + Email</p>
       <div className="mt-8 flex items-center justify-center gap-4">
         <Link href="/chat" className="rounded bg-black px-5 py-3 text-white">AI Chatbot</Link>
-        <Link href="/contact" className="rounded border px-5 py-3">Contact</Link>
       </div>
     </main>
   );
