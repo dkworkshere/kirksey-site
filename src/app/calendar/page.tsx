@@ -1,5 +1,5 @@
 export default function CalendarPage() {
-  const calId = encodeURIComponent(dkworkshere@gmail.com);           // replace with your Calendar ID
+  const calId = encodeURIComponent("dkworkshere@gmail.com");           // replace with your Calendar ID
   const tz = encodeURIComponent("America/New_York");
   const src = `https://calendar.google.com/calendar/embed?src=${calId}&ctz=${tz}&showTitle=0&showPrint=0&showTabs=1&mode=MONTH`;
   return (
