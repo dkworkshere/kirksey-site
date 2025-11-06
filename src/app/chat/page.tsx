@@ -2,7 +2,8 @@
 import Link from "next/link";
 import { useState } from "react";
 
-type Msg = { role: "user" | "assistant"; content: string };
+type Role = "user" | "assistant";
+type Msg = { role: Role; content: string };
 
 export default function ChatPage() {
   const [msgs, setMsgs] = useState<Msg[]>([]);
@@ -12,10 +13,18 @@ export default function ChatPage() {
   async function send() {
     if (!input.trim() || busy) return;
     setBusy(true);
-    const history = [...msgs, { role: "user", content: input }];
-    setMsgs(history); setInput("");
-    const res = await fetch("/api/chat", { method: "POST", headers: { "Content-Type":"application/json" }, body: JSON.stringify({ messages: history }) });
-    const j = await res.json(); if (res.ok && j.ok) setMsgs(m => [...m, { role: "assistant", content: j.text }]);
+
+    const next: Msg[] = [...msgs, { role: "user", content: input }];
+    setMsgs(next);
+    setInput("");
+
+    const res = await fetch("/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ messages: next }),
+    });
+    const j = await res.json();
+    if (res.ok && j.ok) setMsgs(m => [...m, { role: "assistant", content: j.text as string }]);
     setBusy(false);
   }
 
@@ -30,7 +39,7 @@ export default function ChatPage() {
       </div>
       <div className="mt-3 flex gap-2">
         <input className="border rounded p-2 flex-1" value={input} onChange={e=>setInput(e.target.value)} onKeyDown={e=>{ if(e.key==="Enter") send(); }} />
-        <button onClick={send} disabled={busy} className="rounded bg-black text-white px-4 disabled:opacity-50">{busy?"Thinking…":"Send"}</button>
+        <button onClick={send} disabled={busy} className="rounded bg-black text-white px-4 disabled:opacity-50">{busy ? "Thinking…" : "Send"}</button>
       </div>
     </main>
   );
